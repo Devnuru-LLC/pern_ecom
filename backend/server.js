@@ -6,12 +6,15 @@ import morgan from 'morgan'
 import cors from 'cors'
 import dotenv from 'dotenv';
 
+
+import productRoutes from './routes/productRoutes.js'
+
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-console.log(PORT);
+// console.log(PORT);
 
 app.use(express.json()); // Middleware to parse JSON bodies
 app.use(cors()); // Enable CORS for all routes
@@ -19,13 +22,8 @@ app.use(helmet()); // Helmet is a Security middleware that helps you protect you
 app.use(morgan('dev')); // Logging middleware
 
 
-app.get('/', (req, res) => {
-  res.send('Hello from the PERN eCommerce backend!');
-});
-app.get("/devnuru", (req, res) => {
+app.use('/api/products', productRoutes);
 
-  res.send("Devnuru from the PERN eCommerce backend!");
-});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
